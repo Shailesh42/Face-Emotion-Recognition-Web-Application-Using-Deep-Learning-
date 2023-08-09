@@ -26,7 +26,7 @@ Follow these steps to set up and run the Face Emotion Recognition Web Applicatio
 1. Clone this repository to your local machine:
 
    ```
-   git clone https://github.com/your-username/face-emotion-recognition.git
+   git clone [https://github.com/your-username/face-emotion-recognition.git](https://github.com/Shailesh42/Face-Emotion-Recognition-Web-Application-Using-Deep-Learning-.git)
    ```
 
 2. Navigate to the project directory:
