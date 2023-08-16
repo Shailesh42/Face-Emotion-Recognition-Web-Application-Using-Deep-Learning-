@@ -1,7 +1,7 @@
 import sys, os
 import pandas as pd
 import numpy as np
-from keras.models import Sequential
+from keras.models import Sequential #model
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D, BatchNormalization,AveragePooling2D
 from keras.losses import categorical_crossentropy
@@ -10,10 +10,10 @@ from keras.regularizers import l2
 from keras.utils import np_utils
 
 
-df=pd.read_csv('fer2013.csv')
+df=pd.read_csv('fer2013.csv') # read the preprocessed data 
 X_train,train_y,X_test,test_y=[],[],[],[]
 
-for index, row in df.iterrows():
+for index, row in df.iterrows(): 
     val=row['pixels'].split(" ")
     try:
         if 'Training' in row['Usage']:
@@ -49,7 +49,8 @@ X_test /= np.std(X_test, axis=0)
 X_train = X_train.reshape(X_train.shape[0], 48, 48, 1)
 X_test = X_test.reshape(X_test.shape[0], 48, 48, 1)
 
-model = Sequential()
+#build the model 
+model = Sequential()  
 
 model.add(Conv2D(64, kernel_size=(3, 3), activation='relu', input_shape=(X_train.shape[1:])))
 model.add(Conv2D(64,kernel_size= (3, 3), activation='relu'))
@@ -78,7 +79,7 @@ model.add(Dropout(0.2))
 
 model.add(Dense(num_labels, activation='softmax'))
 
-
+#compile the model 
 model.compile(loss=categorical_crossentropy,
               optimizer=Adam(),
               metrics=['accuracy'])
@@ -91,7 +92,7 @@ model.fit(X_train, train_y,
           validation_data=(X_test, test_y),
           shuffle=True)
 
-
+#generate the model
 fer_json = model.to_json()
 with open("fer.json", "w") as json_file:
     json_file.write(fer_json)
